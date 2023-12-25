@@ -10,4 +10,12 @@ jobs:
         run: pwd
       - name: 'Testing Printing'
         run: echo "ASMAA ESMAIL"
-      
+      - name: 'Print Folder Content'
+        run: ls
+      - uses: actions/checkout@v3
+      - name: 'login Docker'
+        run: docker login --username ${{ secret.docker_username }} --password ${{secret.docker_token}}
+      - name: 'Building Docker image'
+        run: docker build -t ${{ secret.docker_username }}/myimage .
+      - name: 'Bushing Docker image'
+        run: docker push ${{ secret.docker_username }}/myimage
